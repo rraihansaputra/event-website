@@ -23,7 +23,7 @@ def signup(request):
 
 def home(request):
     print(request.user)
-    events = Event.objects.all()
+    events = Event.objects.all().order_by('-created_time')
     return render(request, 'home.html', {'events': events})
 
 def event_create_view(request):
