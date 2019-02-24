@@ -5,4 +5,9 @@
     {% if user %}
         <h1> {{ user.username }} </h1>
     {% endif %}
+    {% for event in events %}
+        <h2>{{event.name}}</h2>
+        <h2>{{event.start_date}}</h2>
+        <h2>{{event.created_by}}</h2>
+    {% endfor %}
 {% endblock %}
