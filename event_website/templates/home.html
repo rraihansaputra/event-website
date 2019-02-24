@@ -12,6 +12,7 @@
         <p>finish date: {{event.finish_date}}</p>
         <p>created by: {{event.created_by}}</p>
         <p>users attending: {{event.users_attending.all.count}}</p>
+        <!--TODO add event details to event row-->
         <form action="/attend_event/" method="post">
             {% csrf_token %}
             <input type="hidden" name="event_id" value="{{event.id}}">

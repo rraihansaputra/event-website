@@ -20,11 +20,15 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
+    #TODO add user email to sign up
+    #TODO add user full name to sign up (use email as username?)
 
 def home(request):
     print(request.user)
     events = Event.objects.all().order_by('-created_time')
     return render(request, 'home.html', {'events': events})
+    #TODO add login button if not logged in
+    #TODO change query to have events from today forward only
 
 def event_create_view(request):
     form = EventCreateForm(request.POST or None)
@@ -33,8 +37,9 @@ def event_create_view(request):
         event.created_by = request.user
         event.save()
         return redirect('home')
-    
     return render(request,'create_event.html', {'form': form})
+    #TODO require login
+    #TODO restrict date to future
 
 def event_attend_view(request):
     if request.method == 'POST':
@@ -50,5 +55,6 @@ def event_attend_view(request):
         print(event.users_attending.all())
         return redirect(home)
     #TODO handle these cases:
-    #   what to do when event creator attends an event
+    #   what to do when event creator attends an event -> need to fail
     #   how to handled attended event (handle on template?)
+    #TODO require login
