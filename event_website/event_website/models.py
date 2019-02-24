@@ -9,5 +9,5 @@ class Event(models.Model):
     finish_date = models.DateField()
     details = models.TextField(max_length=1000)
     created_by = models.ForeignKey(User, related_name='created_event', on_delete=models.DO_NOTHING)
-    users_attending = models.ManyToManyField(User, related_name='users_attending')
+    users_attending = models.ManyToManyField(User, related_name='events_attending')
     active = models.BooleanField(default=True)

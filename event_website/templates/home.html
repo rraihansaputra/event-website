@@ -7,7 +7,14 @@
     {% endif %}
     {% for event in events %}
         <h2>{{event.name}}</h2>
-        <h2>{{event.start_date}}</h2>
-        <h2>{{event.created_by}}</h2>
+        <p>start date: {{event.start_date}}</p>
+        <p>finish date: {{event.finish_date}}</p>
+        <p>created by: {{event.created_by}}</p>
+        <p>users attending: {{event.users_attending.all.count}}</p>
+        <form action="/attend_event/" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="event_id" value="{{event.id}}">
+            <button type="submit">Attend Event</button>
+        </form>
     {% endfor %}
 {% endblock %}
