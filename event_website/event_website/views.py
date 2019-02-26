@@ -11,6 +11,7 @@ from .forms import EventCreateForm, CustomUserCreationForm
 
 def home(request):
     events = Event.objects.filter(finish_date__gte=datetime.date.today()).order_by('-created_time')
+    print(request.user.id)
     return render(request, 'home.html', {'events': events})
     #TODO add login button if not logged in
 
@@ -40,3 +41,4 @@ def event_attend_view(request):
         else:
             messages.info(request, "You cannot attend events you have created.")
             return home(request)
+    else: return home(request)

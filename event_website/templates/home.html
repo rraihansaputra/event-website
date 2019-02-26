@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Heyyo this is home.</h1>
-    <a href="/create_event">Create Event</a>
-    {% if not user %} <!-- TODO This is not working -->
-        <h1> You have not logged in </h1>
-        <a href="/login">Log In</a>
-        <a href="/signup">Sign Up</a>
-    {% endif %}
-    <!-- TODO need to add signout button when logged in -->
+    <h1>Event Website</h1>
+    
+    {% if not user.id %} <!-- TODO This is not working -->
+        <h1> You are not logged in </h1>
+        <a href="/accounts/login">Log In</a>
+        <a href="/accounts/signup">Sign Up</a>
+    {% else %}
+        <h2>Hi, {{user.full_name}}!</h2>
+        <a href="/accounts/logout">Log Out</a>
+    {% endif %} <br>
+    <a href="/create_event"><h2>Create Event</h2></a>
     {% if messages %}
         <ul>
             {% for message in messages %}
