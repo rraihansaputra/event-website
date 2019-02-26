@@ -30,9 +30,7 @@ def filter_view(request):
         # Make sure both start and finishing dates exists and are valid.
         if start_filter and finish_filter and (finish_filter >= start_filter):
             # Find events that starts after the start filter and finishes before the finish filter
-            events = Event.objects.filter(finish_date__lte=finish_filter)
-                                  .filter(start_date__gte=start_filter)
-                                  .order_by('finish_date')
+            events = Event.objects.filter(finish_date__lte=finish_filter).filter(start_date__gte=start_filter).order_by('finish_date')
             filter_result = {
                 'start_filter': start_filter,
                 'finish_filter': finish_filter,
@@ -74,4 +72,4 @@ def event_attend_view(request):
             messages.info(request, "You cannot attend events you have created.")
             return redirect('home')
     request.messages(request, "You've taken a wrong turn.")
-    else: return redirect('home')
+    return redirect('home')
