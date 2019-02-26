@@ -1,6 +1,26 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from .models import Event
+from .models import User, Event
+
+class CustomUserCreationForm(UserCreationForm):
+
+    class Meta(UserCreationForm):
+        model = User
+        fields = ('username', 'email', 'full_name')
+
+class CustomUserChangeForm(UserChangeForm):
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'full_name')
+
+class SignupForm(forms.Form):
+    full_name = forms.CharField(max_length=100, label='Full Name')
+
+    def signup(self, request, user):
+        user.full_name = self.cleaned_data['full_name']
+        user.save()
 
 class EventCreateForm(forms.ModelForm):
     class Meta:

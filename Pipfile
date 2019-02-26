@@ -9,6 +9,7 @@ jupyter = "*"
 [packages]
 django = "*"
 django-extensions = "*"
+django-allauth = "*"
 
 [requires]
 python_version = "3.7"

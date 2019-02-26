@@ -3,11 +3,12 @@
 {% block content %}
     <h1>Heyyo this is home.</h1>
     <a href="/create_event">Create Event</a>
-    {% if not user %}
+    {% if not user %} <!-- TODO This is not working -->
         <h1> You have not logged in </h1>
         <a href="/login">Log In</a>
         <a href="/signup">Sign Up</a>
     {% endif %}
+    <!-- TODO need to add signout button when logged in -->
     {% if messages %}
         <ul>
             {% for message in messages %}
@@ -19,10 +20,11 @@
     {% endif %}
     {% for event in events %}
         <h2>{{event.name}}</h2>
-        <p>start date: {{event.start_date}}</p>
-        <p>finish date: {{event.finish_date}}</p>
-        <p>created by: {{event.created_by}}</p>
-        <p>users attending: {{event.users_attending.all.count}}</p>
+        <p>start date: {{event.start_date}} <br>
+        finish date: {{event.finish_date}} <br>
+        created by: {{event.created_by.full_name}} <br>
+        users attending: {{event.users_attending.all.count}} <br>
+        description: {{event.details}}</p>
         <!--TODO add event details to event row-->
         <form action="/attend_event/" method="post">
             {% csrf_token %}
