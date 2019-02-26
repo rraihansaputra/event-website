@@ -13,7 +13,6 @@ def home(request):
     events = Event.objects.filter(finish_date__gte=datetime.date.today()).order_by('-created_time')
     print(request.user.id)
     return render(request, 'home.html', {'events': events})
-    #TODO add login button if not logged in
 
 @login_required
 def event_create_view(request):
