@@ -9,10 +9,39 @@ from django.contrib.auth.decorators import login_required
 from .models import Event, User
 from .forms import EventCreateForm, CustomUserCreationForm
 
-def home(request):
-    events = Event.objects.filter(finish_date__gte=datetime.date.today()).order_by('-created_time')
-    print(request.user.id)
-    return render(request, 'home.html', {'events': events})
+def home(request, filter_result = None):
+    if not filter_result:
+        events = Event.objects.filter(finish_date__gte=datetime.date.today()).order_by('-finish_date')
+        context = { 'events': events }
+    else:
+        context = filter_result
+    return render(request, 'home.html', context)
+
+def filter_view(request):
+    if request.method == 'GET':
+        print(request.GET.get("start_filter"))
+        print(request.GET.get("finish_filter"))
+        try:
+            start_filter = datetime.datetime.strptime(request.GET.get("start_filter"), '%Y-%m-%d')
+            finish_filter = datetime.datetime.strptime(request.GET.get("finish_filter"),  '%Y-%m-%d')
+        except ValueError:
+            messages.info(request, "Please check your filter dates.")
+            return redirect('home')
+
+        if start_filter and finish_filter and (finish_filter >= start_filter):
+            events = Event.objects.filter(finish_date__lte=finish_filter).filter(start_date__gte=start_filter).order_by('finish_date')
+            filter_result = {
+                'start_filter': start_filter,
+                'finish_filter': finish_filter,
+                'events': events
+            }
+            return home(request, filter_result=filter_result)
+        messages.info(request, "Please check your filter dates.")
+        return redirect('home')
+    request.messages(request, "You've taken a wrong turn.")
+    return redirect('home')
+
+
 
 @login_required
 def event_create_view(request):
@@ -36,8 +65,8 @@ def event_attend_view(request):
             event.users_attending.add(user)
             event.save()
             messages.info(request,"You have successfully attended {}".format(event.name))
-            return home(request)
+            return redirect('home')
         else:
             messages.info(request, "You cannot attend events you have created.")
-            return home(request)
-    else: return home(request)
+            return redirect('home')
+    else: return redirect('home')

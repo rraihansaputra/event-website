@@ -28,5 +28,6 @@ urlpatterns = [
     #path('signup/', views.signup, name='signup'),
     path('accounts/', include('allauth.urls')),
     path('create_event/', views.event_create_view, name='create_event'),
-    path('attend_event/', views.event_attend_view, name='attend_event')
+    path('attend_event/', views.event_attend_view, name='attend_event'),
+    path('filter_view/', views.filter_view, name='filter_view'),
 ]

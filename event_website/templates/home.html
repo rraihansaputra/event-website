@@ -21,6 +21,16 @@
             {% endfor %}
         </ul>
     {% endif %}
+    <form action="/filter_view" method="get">
+        <label for="start_filter">Start Date</label>
+        <input type="date" name="start_filter" id="start_filter">
+        <label for="finish_filter">Finish Date</label>
+        <input type="date" name="finish_filter" id="finish_filter">
+        <button type="submit">Filter events</button>
+    </form>
+    {% if start_filter %}
+    <h2>Events starting from <br>{{start_filter}} <br>and finishing by <br>{{finish_filter}}</h2>
+    {% endif %}
     {% for event in events %}
         <h2>{{event.name}}</h2>
         <p>start date: {{event.start_date}} <br>
