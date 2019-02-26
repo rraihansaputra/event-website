@@ -23,6 +23,17 @@ class SignupForm(forms.Form):
         user.save()
 
 class EventCreateForm(forms.ModelForm):
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        finish_date = cleaned_data.get('finish_date')
+
+        if finish_date and start_date and (finish_date < start_date):
+            raise forms.ValidationError(
+                "Event finish date must be equal or later than the event start date"
+            )
+
     class Meta:
         model = Event
         fields = [
