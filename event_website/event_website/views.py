@@ -23,7 +23,6 @@ def event_create_view(request):
         messages.info(request, "You have successfully created event {}".format(event.name))
         return redirect('home')
     return render(request,'create_event.html', {'form': form})
-    #TODO require login
     #TODO restrict date to future
 
 @login_required
@@ -41,6 +40,3 @@ def event_attend_view(request):
         else:
             messages.info(request, "You cannot attend events you have created.")
             return home(request)
-    #TODO handle these cases:
-    #   how to handled attended event (handle on template?)
-    #TODO require login

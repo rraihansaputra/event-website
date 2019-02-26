@@ -25,7 +25,6 @@
         created by: {{event.created_by.full_name}} <br>
         users attending: {{event.users_attending.all.count}} <br>
         description: {{event.details}}</p>
-        <!--TODO add event details to event row-->
         <form action="/attend_event/" method="post">
             {% csrf_token %}
             <input type="hidden" name="event_id" value="{{event.id}}">
