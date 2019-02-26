@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+import datetime
+
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -8,10 +10,9 @@ from .models import Event, User
 from .forms import EventCreateForm, CustomUserCreationForm
 
 def home(request):
-    events = Event.objects.all().order_by('-created_time')
+    events = Event.objects.filter(finish_date__gte=datetime.date.today()).order_by('-created_time')
     return render(request, 'home.html', {'events': events})
     #TODO add login button if not logged in
-    #TODO change query to have events from today forward only
 
 @login_required
 def event_create_view(request):
