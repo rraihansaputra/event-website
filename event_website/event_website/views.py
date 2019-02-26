@@ -23,7 +23,6 @@ def event_create_view(request):
         messages.info(request, "You have successfully created event {}".format(event.name))
         return redirect('home')
     return render(request,'create_event.html', {'form': form})
-    #TODO restrict date to future
 
 @login_required
 def event_attend_view(request):
