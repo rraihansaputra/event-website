@@ -16,6 +16,7 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ('username', 'email', 'full_name')
 
 class SignupForm(forms.Form):
+    # add field to have the full name on the signup page
     full_name = forms.CharField(max_length=100, label='Full Name')
 
     def signup(self, request, user):
@@ -25,6 +26,7 @@ class SignupForm(forms.Form):
 class EventCreateForm(forms.ModelForm):
 
     def clean(self):
+        # Override the ModelForm clean function to make sure finish date is >= start date
         cleaned_data = super().clean()
         start_date = cleaned_data.get('start_date')
         finish_date = cleaned_data.get('finish_date')
