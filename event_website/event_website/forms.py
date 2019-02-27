@@ -1,18 +1,18 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from .models import User, Event
+from .models import AppUser, Event
 
 class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm):
-        model = User
+        model = AppUser
         fields = ('username', 'email', 'full_name')
 
 class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
-        model = User
+        model = AppUser
         fields = ('username', 'email', 'full_name')
 
 class SignupForm(forms.Form):

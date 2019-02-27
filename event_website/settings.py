@@ -62,7 +62,7 @@ ROOT_URLCONF = 'urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['event_website/templates/'],
+        'DIRS': ['templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,7 +131,7 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
 
-AUTH_USER_MODEL = 'event_website.User'
+AUTH_USER_MODEL = 'event_website.AppUser'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

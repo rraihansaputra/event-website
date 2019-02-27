@@ -5,7 +5,7 @@ from .validators import validate_gt_today
 
 # Create your models here.
 
-class User(AbstractUser):
+class AppUser(AbstractUser):
     # Custom user model to accomodate using emails as login
     email = models.EmailField(max_length=100)
     full_name = models.CharField(max_length=100)
@@ -22,6 +22,6 @@ class Event(models.Model):
     
     created_time = models.DateTimeField(auto_now_add=True)
     details = models.TextField(max_length=1000)
-    created_by = models.ForeignKey(User, related_name='created_event', on_delete=models.DO_NOTHING)
-    users_attending = models.ManyToManyField(User, related_name='events_attending')
+    created_by = models.ForeignKey(AppUser, related_name='created_event', on_delete=models.DO_NOTHING)
+    users_attending = models.ManyToManyField(AppUser, related_name='events_attending')
     active = models.BooleanField(default=True)

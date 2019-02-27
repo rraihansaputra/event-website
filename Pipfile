@@ -10,6 +10,7 @@ jupyter = "*"
 django = "*"
 django-extensions = "*"
 django-allauth = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"

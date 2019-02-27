@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
-from .models import Event, User
+from .models import Event, AppUser
 from .forms import EventCreateForm, CustomUserCreationForm
 
 def home(request, filter_result = None):
@@ -63,7 +63,7 @@ def event_attend_view(request):
         event_id = request.POST.get("event_id")
         event = Event.objects.get(pk=event_id)
         if event.created_by.id != user_id: # Make sure creator cannot attend their own event
-            user = User.objects.get(pk=user_id)
+            user = AppUser.objects.get(pk=user_id)
             event.users_attending.add(user)
             event.save()
             messages.info(request,"You have successfully attended {}".format(event.name))
